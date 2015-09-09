@@ -419,13 +419,13 @@ float fov = 2.0*PI/5.0;
 float cameraZ = (height/2.0) / tan(fov/2.0);
 
 
-void mouseClicked(){
-  if (bodyPoints){
-    perspective(fov/2, float(width)/float(height), cameraZ/10.0, cameraZ*10.0);
-    sceneCenterX = width - mouseX;
-    sceneCenterY = height - mouseY;
-  }
-}
+//void mouseClicked(){
+//  if (bodyPoints){
+//    perspective(fov/2, float(width)/float(height), cameraZ/10.0, cameraZ*10.0);
+//    sceneCenterX = width - mouseX;
+//    sceneCenterY = height - mouseY;
+//  }
+//}
 
 
 Big6 b = new Big6();
@@ -442,10 +442,14 @@ void setup(){
   btn1Y = 270;
   lastTimeCheck = second();
 }
+
+float eyeX = width-mouseX;
+float eyeY = height-mouseY;
+
 void draw(){
   sec2 = second();
   if (mousePressed) {
-    camera(width-mouseX, height-mouseY, (height/2) / tan(PI/6), sceneCenterX, sceneCenterY, 0, 0, 1, 0);
+    camera(eyeX, eyeY, (height/2) / tan(PI/6), sceneCenterX, sceneCenterY, 0, 0, 1, 0);
   }
   pushMatrix();
   background(0);
@@ -466,6 +470,12 @@ void draw(){
   text(options, 680, 270, 200, 200);
   if (bodyPoints) {
     bp.drawBodyPoints();
+    eyeX = width/2;
+    eyeY = height/2;
+  }
+  else {
+    eyeX = width-mouseX;
+    eyeY = height-mouseY;
   }
   //update(mouseX, mouseY);
   //  if (pointOver){
